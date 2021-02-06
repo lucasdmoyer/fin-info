@@ -1,0 +1,21 @@
+<p>closing-prices works!</p>
+{{data}}
+{{tickers}}
+{{days_back}}
+<button class="btn btn-primary" (click)="getPrices()">Get Prices</button>
+<ngx-charts-line-chart
+  [view]="view"
+  [scheme]="colorScheme"
+  [legend]="legend"
+  [showXAxisLabel]="showXAxisLabel"
+  [showYAxisLabel]="showYAxisLabel"
+  [xAxis]="xAxis"
+  [yAxis]="yAxis"
+  [xAxisLabel]="xAxisLabel"
+  [yAxisLabel]="yAxisLabel"
+  [timeline]="timeline"
+  [results]="graphData"
+  (select)="onSelect($event)"
+  (activate)="onActivate($event)"
+  >
+</ngx-charts-line-chart>
