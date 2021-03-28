@@ -3,17 +3,21 @@
 <!-- <div *ngFor="let ticker of tickers">
   <app-current [ticker]="ticker"></app-current>
 </div> -->
-<div *ngFor='let stock of weights.weights | keyvalue'>
-  <p>Ticker: {{stock.key}} | Weight: {{stock.value}}</p>
+
+<div *ngIf="showProgress">
+  <div class="spinner-border text-secondary" role="status">
+  </div>
 </div>
-<div class="chart-wrapper">
-  <canvas #panelA=base-chart baseChart 
-      [datasets]="lineChartData" 
-      [labels]="lineChartLabels" 
-      [options]="lineChartOptions"
-      [colors]="lineChartColors" 
-      [legend]="lineChartLegend" 
-      [chartType]="lineChartType" 
+
+<div *ngIf="!showProgress && weights.weights">
+  <div *ngFor='let stock of weights.weights | keyvalue'>
+    <p>Ticker: {{stock.key}} | Weight: {{stock.value}}</p>
+  </div>
+
+  <div class="chart-wrapper">
+    <canvas #panelA=base-chart baseChart [datasets]="lineChartData" [labels]="lineChartLabels"
+      [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
       [plugins]="lineChartPlugins">
-  </canvas>
+    </canvas>
+  </div>
 </div>

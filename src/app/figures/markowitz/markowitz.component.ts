@@ -13,6 +13,7 @@ export class MarkowitzComponent implements OnInit {
   //tickers: string[] = ['MMM', 'GOOG', 'AMD'];
   tickers: string[] = [];
   total_capital: string = '10000';
+  showProgress = true;
   // weights: any = {
   //   'weights': {
   //     'MMM': 0.33,
@@ -21,6 +22,7 @@ export class MarkowitzComponent implements OnInit {
   //   }
   // }
   @Input() weights?: any;
+  new_weights: any = {};
   data: any;
   stock_data: any = [];
   constructor(private stockService: StockDataService) {
@@ -31,10 +33,10 @@ export class MarkowitzComponent implements OnInit {
     { data: [], label: 'forecasted_total', yAxisID: 'y-axis-0' },
     { data: [], label: 'upper_total', yAxisID: 'y-axis-0' },
     { data: [], label: 'lower_total', yAxisID: 'y-axis-0' },
-    { data: [], label: 'returns', yAxisID: 'y-axis-1' },
-    { data: [], label: 'forecasted_returns', yAxisID: 'y-axis-1' },
-    { data: [], label: 'upper_returns', yAxisID: 'y-axis-1' },
-    { data: [], label: 'lower_returns', yAxisID: 'y-axis-1' },
+    // { data: [], label: 'returns', yAxisID: 'y-axis-1' },
+    // { data: [], label: 'forecasted_returns', yAxisID: 'y-axis-1' },
+    // { data: [], label: 'upper_returns', yAxisID: 'y-axis-1' },
+    // { data: [], label: 'lower_returns', yAxisID: 'y-axis-1' },
 
   ];
 
@@ -53,24 +55,28 @@ export class MarkowitzComponent implements OnInit {
           scaleLabel: {
             display: true,
             labelString: 'Portfolio Value'
+          },
+          ticks: {
+            max : 10200,
+            min: 10050
           }
         },
-        {
-          id: 'y-axis-1',
-          position: 'right',
-          scaleLabel: {
-            display: true,
-            labelString: 'Returns'
-          }
-        },
-        {
-          id: 'y-axis-2',
-          position: 'right',
-          scaleLabel: {
-            display: true,
-            labelString: 'Upper/Lower Value'
-          }
-        }
+        // {
+        //   id: 'y-axis-1',
+        //   position: 'right',
+        //   scaleLabel: {
+        //     display: true,
+        //     labelString: 'Returns'
+        //   }
+        // },
+        // {
+        //   id: 'y-axis-2',
+        //   position: 'right',
+        //   scaleLabel: {
+        //     display: true,
+        //     labelString: 'Upper/Lower Value'
+        //   }
+        // }
       ]
     }
   };
@@ -149,10 +155,12 @@ export class MarkowitzComponent implements OnInit {
   }
 
   getOptimizedWeights() {
+    this.showProgress = true
     this.tickers = Object.keys(this.weights.weights);
     this.stockService.optimizeWeights(this.tickers).subscribe(res => {
       //this.weights.weights = {};
       for (let key in res['weights']) {
+
         let value = res['weights'][key];
         this.weights.weights[key] = value;
         
@@ -160,6 +168,7 @@ export class MarkowitzComponent implements OnInit {
       console.log(this.weights);
 
       this.getPortfolio();
+      
     })
   }
 
@@ -179,30 +188,7 @@ export class MarkowitzComponent implements OnInit {
           line.data?.push(row[label]);
         }
       }
-
-      // for (let line of this.lineChartData) {
-
-      // }
-
-      // for (let symbol in this.tickers) {
-      //   // let label = line['label']|| 'total';
-      //   for (let row of this.data) {
-      //     for (let col in this.cols_wanted) {
-      //       this.stock_data[symbol].push([])
-      //     }
-
-
-
-      //     if (col == 'open') {
-      //       line.data?.push(row[symbol.concat('_open')]);
-      //     } else if (label == 'close') {
-      //       line.data?.push(row[symbol.concat('_close')]);
-      //     } else {
-      //       line.data?.push(row[label]);
-      //     }
-
-      //   }
-      // }
+      this.showProgress = false;
     })
   }
 

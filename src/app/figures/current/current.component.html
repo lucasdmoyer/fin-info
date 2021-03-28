@@ -1,12 +1,22 @@
-{{ticker}}
+<h1>Current Portfolio</h1>
+<!-- <app-single [ticker]="'AMD'"></app-single> -->
+<!-- <div *ngFor="let ticker of tickers">
+  <app-current [ticker]="ticker"></app-current>
+</div> -->
+<!-- <div *ngFor='let stock of weights.weights; let i = index'>
+  <p>Ticker: {{tickers[i]}} | Weight: {{weights[i]}}</p>
+</div> -->
+<div *ngFor='let stock of old_weights.weights | keyvalue'>
+  <p>Ticker: {{stock.key}} | Weight: {{stock.value}}</p>
+</div>
 <div class="chart-wrapper">
-    <canvas baseChart 
-        [datasets]="lineChartData" 
-        [labels]="lineChartLabels" 
-        [options]="lineChartOptions"
-        [colors]="lineChartColors" 
-        [legend]="lineChartLegend" 
-        [chartType]="lineChartType" 
-        [plugins]="lineChartPlugins">
-    </canvas>
+  <canvas #panelA=base-chart baseChart 
+      [datasets]="lineChartData" 
+      [labels]="lineChartLabels" 
+      [options]="lineChartOptions"
+      [colors]="lineChartColors" 
+      [legend]="lineChartLegend" 
+      [chartType]="lineChartType" 
+      [plugins]="lineChartPlugins">
+  </canvas>
 </div>
