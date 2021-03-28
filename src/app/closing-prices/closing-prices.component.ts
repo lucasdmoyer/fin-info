@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { StockDataService } from '../services/stock-data.service';
-
 import { multi } from './data';
+import { from } from 'rxjs';
+
 @Component({
   selector: 'app-closing-prices',
   templateUrl: './closing-prices.component.html',
@@ -9,7 +10,7 @@ import { multi } from './data';
 })
 export class ClosingPricesComponent implements OnInit {
   data: any;
-  tickers: string[] = ["AAPL", "MSFT", "TSLA"];
+  tickers: string[] = ['AMD', 'GOOG', 'MMM']
   days_back: number = 365;
   graphData: any[] = [];
 
@@ -40,11 +41,13 @@ export class ClosingPricesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.graphData = multi;
     this.getPrices();
   }
   getPrices() {
     this.stockService.getStockData(this.tickers, this.days_back).subscribe(raw => {
       this.data = raw;
+      this.graphData=[];
       console.log(this.data);
       for (let ticker of this.tickers) {
         console.log(ticker);
@@ -54,6 +57,7 @@ export class ClosingPricesComponent implements OnInit {
           "series": []
         }
         Object.keys(this.data[ticker]).forEach(key => {
+          console.info(this.data[ticker][key]);
           ticker_data['series'].push({
             "name": this.data[ticker][key]['Date'],
             "value": this.data[ticker][key]["Adj Close"]

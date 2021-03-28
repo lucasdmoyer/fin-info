@@ -1,0 +1,19 @@
+<h1>Optimized Portfolio</h1>
+<!-- <app-single [ticker]="'AMD'"></app-single> -->
+<!-- <div *ngFor="let ticker of tickers">
+  <app-current [ticker]="ticker"></app-current>
+</div> -->
+<div *ngFor='let stock of weights.weights | keyvalue'>
+  <p>Ticker: {{stock.key}} | Weight: {{stock.value}}</p>
+</div>
+<div class="chart-wrapper">
+  <canvas #panelA=base-chart baseChart 
+      [datasets]="lineChartData" 
+      [labels]="lineChartLabels" 
+      [options]="lineChartOptions"
+      [colors]="lineChartColors" 
+      [legend]="lineChartLegend" 
+      [chartType]="lineChartType" 
+      [plugins]="lineChartPlugins">
+  </canvas>
+</div>

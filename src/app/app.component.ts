@@ -11,7 +11,9 @@ export class AppComponent {
   active = 1;
   links = [
     { title: 'Home', fragment: 'one',link:"." },
-    { title: 'Prices', fragment: 'two',link:'./prices' }
+    { title: 'Prices', fragment: 'two',link:'./prices' },
+    { title: 'Portfolio', fragment: 'three', link:'./portfolio'},
+    { title: 'Combo', fragment: 'four', link:'./combo'}
   ];
   constructor(public route: ActivatedRoute) {}
   

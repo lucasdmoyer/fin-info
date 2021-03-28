@@ -9,11 +9,18 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClosingPricesComponent } from './closing-prices/closing-prices.component';
 
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { PortfolioComponent } from './portfolio/portfolio.component';
+import { ChartsModule } from 'ng2-charts';
+import { ComboComponent } from './combo/combo.component';
+import { FiguresModule } from './figures/figures.module';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    ClosingPricesComponent
+    ClosingPricesComponent,
+    PortfolioComponent,
+    ComboComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +28,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     NgbModule,
     HttpClientModule,
     NgxChartsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ChartsModule,
+    FiguresModule
   ],
   providers: [],
   bootstrap: [AppComponent]
