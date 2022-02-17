@@ -13,6 +13,8 @@ import { PortfolioComponent } from './portfolio/portfolio.component';
 import { ChartsModule } from 'ng2-charts';
 import { ComboComponent } from './combo/combo.component';
 import { FiguresModule } from './figures/figures.module';
+import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -30,7 +32,8 @@ import { FiguresModule } from './figures/figures.module';
     NgxChartsModule,
     BrowserAnimationsModule,
     ChartsModule,
-    FiguresModule
+    FiguresModule,
+    environment.production ? [] : AkitaNgDevtools.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

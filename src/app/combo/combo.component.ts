@@ -1,3 +1,4 @@
+import { StocksService } from './../session/state/session.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, BaseChartDirective, Label } from 'ng2-charts';
@@ -22,7 +23,7 @@ export class ComboComponent implements OnInit {
   // lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June'];
 
   public lineChartData: ChartDataSets[] = [
-    { data: [], label: 'total',  yAxisID: 'y-axis-0' },
+    { data: [], label: 'total', yAxisID: 'y-axis-0' },
     { data: [], label: 'returns', yAxisID: 'y-axis-1' },
     { data: [], label: 'holdings', yAxisID: 'y-axis-2' },
     { data: [], label: 'cash', yAxisID: 'y-axis-2' }
@@ -98,32 +99,55 @@ export class ComboComponent implements OnInit {
   lineChartType = 'line' as const;
 
   data: any;
-  tickers: string[] = ['AMD', 'GOOG', 'MMM']
+  tickers: string[] = ['MMM'];
   days_back: number = 365;
   graphData: any[] = [];
 
 
-  constructor(private stockService: StockDataService) { }
+  constructor(private stockService: StockDataService, private stockSvc: StocksService) { }
 
   ngOnInit(): void {
     this.getPortfolio();
 
   }
 
+  getStocks() {
+    this.stockSvc.update();
+  }
   getPortfolio() {
-    this.stockService.getPortfolio(this.tickers, this.initial_capital).subscribe(raw => {
-      this.data = raw;
-      console.log(this.data);
-      //this.lineChartData = [];
+    // this.stockService.getPortfolio(this.tickers, this.initial_capital).subscribe(raw => {
+    //   this.data = raw;
+    //   console.log(this.data);
+    //   //this.lineChartData = [];
 
-      // get date and set to labels
+    //   // get date and set to labels
+    //   this.lineChartLabels = [];
+    //   Object.keys(this.data).forEach(key => {
+    //     this.lineChartLabels.push(this.data[key]['date']);
+    //   });
+
+    //   for (let line of this.lineChartData) {
+    //     let label = line['label'] || 'total';
+    //     for (let row of this.data) {
+    //       line.data?.push(row[label]);
+    //     }
+    //   }
+    // })
+
+    this.stockService.getStockData(this.tickers, this.days_back).subscribe(res => {
+      this.data = res;
+      console.log(res);
+      let chars = [];
+      this.tickers.forEach(ticker => {
+
+      })
       this.lineChartLabels = [];
       Object.keys(this.data).forEach(key => {
         this.lineChartLabels.push(this.data[key]['date']);
       });
-
+      let chartData: ChartDataSets[] = [];
       for (let line of this.lineChartData) {
-        let label = line['label']|| 'total';
+        let label = line['label'] || 'total';
         for (let row of this.data) {
           line.data?.push(row[label]);
         }

@@ -10,7 +10,7 @@ export class StockDataService {
 
 
   getStockData(tickers: string[], days_back: number) {
-    return this.http.get(environment.apiUrl + "/getBars?ticker_data=AMD%2CGOOG%2CMMM&initial_captial=100000")
+    return this.http.get(environment.apiUrl + "/getStocks?ticker_data=AMD%2CGOOG%2CMMM&initial_captial=100000")
   }
 
   getPortfolio(tickers: string[], initial_capital: string) {

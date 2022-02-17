@@ -5,7 +5,7 @@ import { ElementFinder } from 'protractor';
 import { StockDataService } from '../../services/stock-data.service';
 
 @Component({
-  selector: 'app-single[ticker]',
+  selector: 'app-single',
   templateUrl: './single.component.html',
   styleUrls: ['./single.component.scss']
 })
